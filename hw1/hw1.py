@@ -82,14 +82,31 @@ def put_results(outfile_name, results):
         writer.writerow(row)
 
 
-def plot_graph(results):
-    fig = plt.errorbar(results[0], results[1], yerr=results[2])
-    return fig
+#def plot_graph(results):
+#    fig = plt.errorbar(results[0], results[1], yerr=results[2])
+#    return fig
 
 
 def gen_graphic_file(outfile, results):
     plot = plot_graph(results)
     plt.savefig(outfile, bbox_inches='tight')
+
+def plot_graph(results):
+    pairs = zip(results[1], results[2])
+    u_err = [m + s for m, s in pairs]
+    l_err = [m - s for m, s in pairs]
+
+    fig, ax = plt.subplots(1)
+    ax.plot(results[0], results[1], lw=2, label="mean accuracy",
+            color="blue")
+    ax.fill_between(results[0], u_err, l_err, facecolor="blue",
+            alpha=0.5)
+    ax.set_title("accuracy by number of neighbors")
+    ax.legend(loc="best")
+    ax.set_xlabel('number of nearest neighbors')
+    ax.set_ylabel('accuracy')
+    ax.grid()
+    return fig
 
 
 if __name__ == '__main__':
@@ -102,7 +119,7 @@ if __name__ == '__main__':
         type=argparse.FileType('w'), default=sys.stdout)
     parser.add_argument("-g", "--graph", nargs='?', const=".png",
         default="none")
-    parser.add_argument("-n", "--neighbors", type=int, default=30, help=
+    parser.add_argument("-n", "--neighbors", type=int, default=100, help=
         "specify a maximum number of neighbors")
     parser.add_argument("-m", "--minneighbors", type=int, default=1, help=
         "specify a minimum number of neighbors")
