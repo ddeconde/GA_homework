@@ -6,6 +6,8 @@ import numpy as np
 import csv
 import sys
 import argparse
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from sklearn import cross_validation
@@ -87,7 +89,7 @@ def plot_graph(results):
 
 def gen_graphic_file(outfile, results):
     plot = plot_graph(results)
-    plt.savefig(outfile)
+    plt.savefig(outfile, bbox_inches='tight')
 
 
 if __name__ == '__main__':
