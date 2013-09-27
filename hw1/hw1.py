@@ -18,7 +18,7 @@ from sklearn.neighbors import KNeighborsClassifier
 # knn fitting over a range of neighbor counts and yields a list of means
 # and a list of standard deviations.
 
-def cross_val_over_neighbors(predictors, reponses, max_neighbors,
+def cross_val_over_neighbors(predictors, responses, max_neighbors,
         min_neighbors, k_fold):
     neighbors = range(min_neighbors, max_neighbors + 1)
     score_means = []
@@ -111,8 +111,7 @@ def plot_graph(results):
     return fig
 
 
-if __name__ == '__main__':
-
+def main():
     # Parse arguments when run from CLI
 
     parser = argparse.ArgumentParser()
@@ -163,4 +162,7 @@ if __name__ == '__main__':
         else:
             gen_graphic_file(arga.graphic + ".png", err_lists)
 
+
+if __name__ == '__main__':
+    main()
 
