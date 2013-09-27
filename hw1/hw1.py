@@ -82,14 +82,16 @@ def put_results(outfile_name, results):
         writer.writerow(row)
 
 
-#def plot_graph(results):
-#    fig = plt.errorbar(results[0], results[1], yerr=results[2])
-#    return fig
-
+# Save a plot directly to a .png file rather than displaying it. Useful
+# for terminal based operation.
 
 def gen_graphic_file(outfile, results):
     plot = plot_graph(results)
     plt.savefig(outfile, bbox_inches='tight')
+
+
+# Use matplotlib tools to generate a plot of mean accuracy with shading
+# indicating plus or minus one std_dev.
 
 def plot_graph(results):
     pairs = zip(results[1], results[2])
